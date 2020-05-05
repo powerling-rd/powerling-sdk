@@ -1,0 +1,10 @@
+<xliff version="1.2">
+ <file original="my_file.txt" source-language="en-US" target-language="fr-FR">
+  <body>
+   <trans-unit id="1">
+    <source xml:lang="en-US">Some test sentence</source>
+    <target xml:lang="fr-FR"/>
+   </trans-unit>
+  </body>
+ </file>
+</xliff>
