@@ -18,6 +18,9 @@ client = Pwl(os.environ.get('url'), os.environ.get('secret'))
 # Check order file status
 #print(client.retrieve_order_file(1, 1))
 
+print(client.download_order_file(1, 1))
+
+
 # Full translation process
 def translate():
     try:
@@ -40,4 +43,4 @@ def translate():
     except HTTPError as e:
         print('Error during request: %d %s' % (e.response.status_code, e.response.reason))
 
-translate()
+#translate()

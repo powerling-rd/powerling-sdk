@@ -28,6 +28,10 @@ class Pwl:
     def retrieve_order_file(self, order_id, order_file_id):
         return self.__call_api('/order/%d/file/%d/status' % (order_id, order_file_id), False)
 
+    # Download translated file
+    def download_order_file(self, order_id, order_file_id):
+        return self.__call_api('/order/%d/file/%d' % (order_id, order_file_id), False, None, None, True)
+
     # Add a binary file to a translation order
     def add_xliff_file_to_order(self, order_id, source_lang, target_lang, client_ref, fil):
         return self.__call_api('/order/%d/upload-file' % (order_id), True, {'sourcelang': source_lang, 'targetlang': target_lang, 'clientref': client_ref}, {'file': fil})
@@ -48,7 +52,7 @@ class Pwl:
     def add_request_callback_to_order_file(self, order_id, order_file_id, callback_url):
         return self.__call_api('/order/%d/file/%d/request-callback' % (order_id, order_file_id), True, {'url': callback_url})
 
-    def __call_api(self, path, is_post=True, data=None, files=None):
+    def __call_api(self, path, is_post=True, data=None, files=None, binary=False):
         hed = {'Authorization': 'Bearer %s' % (self.auth_token)}
         url = self.uri + path
 
@@ -66,4 +70,7 @@ class Pwl:
         # Exceptions on error code
         response.raise_for_status()
 
-        return response.json()
+        if binary:
+            return response.content
+        else:
+            return response.json()
